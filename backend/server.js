@@ -12,6 +12,15 @@ const io = new SocketServer(server, {
 
 io.on("connection", (socket) => {
   console.log("A user connected");
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+
+  socket.on("message", (message) => {
+    console.log(message);
+    socket.broadcast.emit("message", message);
+  });
 });
 
 server.listen(3000, () => {
