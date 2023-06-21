@@ -3,11 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "description": "Chat con socket.io y express",
   "scripts": {
     "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "chat",
+    "socket.io",
+    "express",
+    "cors"
+  ],
+  "author": "Diego Rubí Salas",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
