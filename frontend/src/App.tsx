@@ -23,10 +23,12 @@ function App() {
     const messageModel: MessageModel = {
       from: "Me",
       message: text,
+      date: new Date(),
     };
 
     setMessages((state) => [...state, messageModel]);
     socket.emit("message", messageModel);
+    setText("");
   }
 
   function getHourAndMinute(date: Date): string {
@@ -79,7 +81,7 @@ function App() {
                   {item.message}
                 </span>
                 <span className="text-xs text-white block">
-                  {getHourAndMinute(new Date())}
+                  {getHourAndMinute(item.date)}
                 </span>
               </li>
             ))}
@@ -89,6 +91,7 @@ function App() {
           type="text"
           className="border-2 bg-zinc-500 p-2 w-full text-black"
           placeholder="Enter your message..."
+          value={text}
           onChange={(e) => setText(e.target.value)}
         />
       </form>
