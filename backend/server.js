@@ -6,6 +6,10 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketServer(server);
 
+io.on("connection", (socket) => {
+  console.log("A user connected");
+});
+
 app.listen(3000, () => {
   console.log("Server is listening on port 3000");
 });
