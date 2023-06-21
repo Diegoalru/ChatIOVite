@@ -1,6 +1,7 @@
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { MessageModel } from "./models/MessageModel";
+import MessageComponent from "./components/MessageComponent";
 
 // Create socket instance.
 const socket = io("/");
@@ -10,15 +11,15 @@ function App() {
   const [text, setText] = useState("");
 
   /**
-   * Handle form submit.
-   * @param e Event
+   * Handle submit form.
+   * @param e Event from form.
    * @returns void
    */
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+    e.preventDefault(); // Prevent page reload.
 
-    if (!text) return;
-    if (text.trim().length === 0) return;
+    if (!text) return; // If text is empty, do nothing.
+    if (text.trim().length === 0) return; // If text is empty, do nothing.
 
     const messageModel: MessageModel = {
       from: "Me",
@@ -31,20 +32,13 @@ function App() {
     setText("");
   }
 
-  function getHourAndMinute(date: Date): string {
-    const time = new Date(date);
-    const hour = time.getHours()
-    const minute = time.getMinutes().toString().padStart(2, "0");
-    return `${hour}:${minute}`;
-  }
-
   useEffect(() => {
     /**
-     * Receive message from server.
+     * Receive message from server and add it to state.
      * @param message Message from server.
      * @returns void
      */
-    function receiveMessage(message: MessageModel) {
+    function receiveMessage(message: MessageModel): void {
       // Add message to state.
       return setMessages((state) => [...state, message]);
     }
@@ -66,26 +60,7 @@ function App() {
         {messages.length === 0 ? (
           <h6 className="text-center">No messages</h6>
         ) : (
-          <ul>
-            {messages.map((item, index) => (
-              <li
-                key={index}
-                className={`my-2 p-2 table text-sm rounded-md ${
-                  item.from === "Me" ? "bg-sky-700 ml-auto" : "bg-zinc-400"
-                }`}
-              >
-                <span className="text-xs text-slate-800 font-bold block">
-                  {item.from}
-                </span>
-                <span>
-                  {item.message}
-                </span>
-                <span className="text-xs text-white block">
-                  {getHourAndMinute(item.date)}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <MessageComponent messages={messages} />
         )}
         <input
           type="text"
