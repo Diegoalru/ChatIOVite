@@ -1,10 +1,16 @@
-import './App.css'
-import io from 'socket.io-client'
+import "./App.css";
+import io from "socket.io-client";
 
-const socket = io('http://localhost:3000')
+const socket = io("/");
 
 function App() {
-  return <div>Hello World</div>;
+  socket.on("connect", () => {
+    console.log("Connected to server");
+  });
+
+  return(
+    <div>Hello World</div>
+  );
 }
 
-export default App
+export default App;
