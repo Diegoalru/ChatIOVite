@@ -13,7 +13,6 @@ function MessageComponent(props: { messages: MessageModel[] }) {
 
   return (
     <div className="messages">
-      <h2 className="text-white text-lg font-bold mb-2">Messages</h2>
       <ul>
         {messages.map((item, index) => (
           <li

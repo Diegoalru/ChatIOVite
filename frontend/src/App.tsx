@@ -57,6 +57,7 @@ function App() {
   return (
     <div className="h-screen bg-zinc-800 text-white flex items-center justify-center">
       <form onSubmit={handleSubmit} className="bg-zinc-900 p-10">
+        <h2 className="text-white text-lg font-bold mb-2">Messages</h2>
         {messages.length === 0 ? (
           <h6 className="text-center">No messages</h6>
         ) : (
