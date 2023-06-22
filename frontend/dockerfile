@@ -1,0 +1,15 @@
+# Crea la imagen de docker para el frontend
+
+FROM node:16.20.1-slim as build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install -g npm@9.7.2
+RUN npm install
+COPY . .
+RUN npm run build
+
+FROM nginx:stable-alpine3.17-slim as dev
+ENV NODE_ENV=development
+EXPOSE 80
+COPY --from=build /app/dist /usr/share/nginx/html
+CMD ["nginx","-g","daemon off;"]

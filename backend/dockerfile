@@ -1,0 +1,12 @@
+# Crea la imagen de docker para el backend
+
+FROM node:16.20.1-slim as base
+WORKDIR /app
+COPY package*.json ./
+RUN npm install -g npm@9.7.2
+RUN npm install
+COPY . .
+
+FROM base as dev
+ENV NODE_ENV=development
+CMD ["npm", "run", "dev"]

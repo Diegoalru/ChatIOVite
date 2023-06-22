@@ -64,7 +64,7 @@ function App() {
         )}
         <input
           type="text"
-          className="border-2 bg-zinc-500 p-2 w-full text-black"
+          className="border-2 bg-zinc-500 p-2 w-full text-black mt-2"
           placeholder="Enter your message..."
           value={text}
           onChange={(e) => setText(e.target.value)}
